@@ -11,8 +11,7 @@ public record PeliculaRequestDTO(
        String titulo,
        String genero,
        LocalDate fechaEstreno,
-       Long dir_id,
-       Long actor_id
+       Long dir_id
 ) {
     public Pelicula toEntity(Director director){
         return Pelicula.builder()
