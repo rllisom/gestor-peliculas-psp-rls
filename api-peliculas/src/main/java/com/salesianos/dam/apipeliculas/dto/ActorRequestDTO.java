@@ -8,7 +8,7 @@ import java.util.Set;
 public record ActorRequestDTO(
         String nombre
 ) {
-    public Actor toEntity(Set<Pelicula> peliculas){
+    public Actor toEntity(){
         return Actor.builder()
                 .nombre(this.nombre)
                 .build();
