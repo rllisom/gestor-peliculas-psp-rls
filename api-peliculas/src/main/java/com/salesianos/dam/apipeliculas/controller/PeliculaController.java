@@ -1,10 +1,12 @@
 package com.salesianos.dam.apipeliculas.controller;
 
+import com.salesianos.dam.apipeliculas.dto.DirectorResponseDTO;
 import com.salesianos.dam.apipeliculas.dto.PeliculaRequestDTO;
 import com.salesianos.dam.apipeliculas.dto.PeliculaResponseDTO;
 import com.salesianos.dam.apipeliculas.model.Pelicula;
 import com.salesianos.dam.apipeliculas.service.PeliculaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -29,7 +31,7 @@ public class PeliculaController {
 
     private final PeliculaService peliculaService;
 
-    @Operation(summary = "Obtener toda las películas")
+    @Operation(summary = "Obtener todas las películas")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Películas recibidas correctamente",
             content = @Content(
@@ -77,6 +79,7 @@ public class PeliculaController {
     public List<PeliculaResponseDTO> getAll(){
         return peliculaService.getAll().stream().map(PeliculaResponseDTO::of).toList();
     }
+
     @Operation(summary = "Obtener toda las películas")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Película recibida correctamente",
@@ -120,7 +123,9 @@ public class PeliculaController {
             )
     })
     @GetMapping("/{id}")
-    public PeliculaResponseDTO getById(@PathVariable Long id){
+    public PeliculaResponseDTO getById(
+            @Parameter(description = "identificador de la película",example = "1" )
+            @PathVariable Long id){
         return PeliculaResponseDTO.of(peliculaService.getById(id));
     }
 
@@ -133,18 +138,10 @@ public class PeliculaController {
                             examples = @ExampleObject(
                                     value = """
                                         {
-                                          "id": 1,
-                                          "titulo": "El viaje",
-                                          "fechaEstreno": "2024-05-15",
-                                          "genero": "Drama",
-                                          "director": {
-                                            "id": 10,
-                                            "nombre": "Pedro Almodóvar"
-                                          },
-                                          "actores": [
-                                            { "id": 2, "nombre": "Ana García" },
-                                            { "id": 3, "nombre": "Luis Pérez" }
-                                          ]  
+                                            "titulo": "El viaje",
+                                            "genero": "Acción",
+                                            "fechaEstreno": "2024-05-17",
+                                            "dir_id": 1
                                         }
                                     """
                             ))),
@@ -155,34 +152,263 @@ public class PeliculaController {
                             examples = @ExampleObject(
                                     value = """
                                         {
-                                             "detail": "Failed to read request",
-                                             "instance": "/api/v1/peliculas",
-                                             "status": 400,
-                                             "title": "Bad Request"
+                                         {
+                                           "detail": "Falta el campo del título de la película",
+                                           "instance": "/api/v1/peliculas",
+                                           "status": 400,
+                                           "title": "Error en los argumentos",
+                                           "type": "gestorpeliculas.com/error/argumento-erroneo"
+                                                                       
                                         }
                                     """
                             )
                     )
             ),
-            @ApiResponse
+            @ApiResponse(responseCode = "404", description = "Película no encontrada",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                                {
+                                                    "detail": "No se ha encontrado la película con id 4",
+                                                    "instance": "/api/v1/peliculas/4",
+                                                    "status": 404,
+                                                    "title": "Entidad no encontrada",
+                                                    "type": "gestorpeliculas.com/error/no-encontrado"
+                                                }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "409", description = "La película ya existe",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProblemDetail.class),
+                    examples = @ExampleObject(
+                            value = """
+                                        {
+                                           "detail": "Ya existe una película con el titulo: El viaje",
+                                           "instance": "/api/v1/peliculas",
+                                           "status": 409,
+                                           "title": "Película ya existente",
+                                           "type": "gestorpeliculas.com/error/fallo-agregar" 
+                                        }
+                                    """
+                    )
+            )
+            )
     })
     @PostMapping
-    public ResponseEntity<PeliculaResponseDTO> create(@RequestBody PeliculaRequestDTO dto){
+    public ResponseEntity<PeliculaResponseDTO> create(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cuerpo del dto",content = @Content(schema = @Schema(implementation = PeliculaRequestDTO.class),
+            mediaType = "application/media", examples = @ExampleObject(value = """
+                    {
+                        "titulo": "El viaje",
+                        "genero": "Acción",
+                        "fechaEstreno": "2024-05-17",
+                        "dir_id": 1
+                    }
+                    """)
+            ))
+            @RequestBody PeliculaRequestDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(PeliculaResponseDTO.of(peliculaService.create(dto)));
     }
 
+
+    @Operation(summary = "Agregar actor a la serie")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Actor agregado a la serie correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PeliculaResponseDTO.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                    
+                                        {
+                                          "id": 1,
+                                          "titulo": "El viaje",
+                                          "fechaEstreno": "2024-05-15",
+                                          "genero": "Drama",
+                                          "director": {
+                                            "id": 1,
+                                            "nombre": "Pedro Almodóvar"
+                                          },
+                                          "actores": [
+                                            { "id": 2, "nombre": "Ana García" },
+                                          ]  
+                                        }
+                                    
+                                    """
+                            ))),
+            @ApiResponse(responseCode = "409", description = "Error al agregar el actor",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                    {
+                        "detail": "El actor con id 1 ya está en el reparto de la serie",
+                        "instance": "/api/v1/peliculas/1/actores/1",
+                        "status": 409,
+                        "title": "Error al asignar",
+                        "type": "gestorpeliculas.com/error/fallo-agregar"
+                    }
+                """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Película actor no encontrado",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                                {
+                                                    "detail": "No se ha encontrado la película con id 4",
+                                                    "instance": "/api/v1/peliculas/4",
+                                                    "status": 404,
+                                                    "title": "Entidad no encontrada",
+                                                    "type": "gestorpeliculas.com/error/no-encontrado"
+                                                }
+                                            """
+                            )
+                    )
+            )
+    })
     @PostMapping("/{peliculaId}/actores/{actorId}")
-    public ResponseEntity<PeliculaResponseDTO> ActorToPelicula(@PathVariable Long peliculaId, @PathVariable Long actorId){
+    public ResponseEntity<PeliculaResponseDTO> ActorToPelicula(
+            @Parameter(description = "Identificador de la película",example = "1")
+            @PathVariable Long peliculaId,
+            @Parameter(description = "Identificador del actor", example = "2")
+            @PathVariable Long actorId){
         return ResponseEntity.status(HttpStatus.CREATED).body(PeliculaResponseDTO.of(peliculaService.editPeliculaActor(peliculaId,actorId)));
     }
 
+    @Operation(summary = "Editar una película")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Película editada correctamente",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PeliculaResponseDTO.class)),
+                            examples = @ExampleObject(
+                                    value = """
+                                        {
+                                                "id": 1,
+                                                "titulo": "Los viaje",
+                                                "fechaEstreno": "2024-05-17",
+                                                "genero": "Acción",
+                                                "director": {
+                                                    "id": 1,
+                                                    "nombre": "Pedro Almodovar"
+                                                },
+                                                "actores": [
+                                                    {
+                                                        "id": 1,
+                                                        "nombre": "Antonio Banderas"
+                                                    }
+                                                ]
+                                        }
+                                    """
+                            ))),
+            @ApiResponse(responseCode = "400", description = "Error al editar la película",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                        {
+                                            "detail": "Falta el campo del título de la película",
+                                            "instance": "/api/v1/peliculas/1",
+                                            "status": 400,
+                                            "title": "Error en los argumentos",
+                                            "type": "gestorpeliculas.com/error/argumento-erroneo"
+                                        }
+                                    """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Película no encontrada",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                                {
+                                                    "detail": "No se ha encontrado la película con id 4",
+                                                    "instance": "/api/v1/peliculas/4",
+                                                    "status": 404,
+                                                    "title": "Entidad no encontrada",
+                                                    "type": "gestorpeliculas.com/error/no-encontrado"
+                                                }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "409", description = "La película ya existe",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                        {
+                                           "detail": "Ya existe una película con el titulo: El viaje",
+                                           "instance": "/api/v1/peliculas",
+                                           "status": 409,
+                                           "title": "Película ya existente",
+                                           "type": "gestorpeliculas.com/error/fallo-agregar" 
+                                        }
+                                    """
+                            )
+                    )
+            )
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<PeliculaResponseDTO> edit(@PathVariable Long id, @RequestBody PeliculaRequestDTO dto){
+    public ResponseEntity<PeliculaResponseDTO> edit(
+            @Parameter(description = "Identificador de la película",example = "1" )
+            @PathVariable Long id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cuerpo de la película", content = @Content(
+                    schema = @Schema(implementation = PeliculaRequestDTO.class),
+                    mediaType = "application/json",
+                    examples = @ExampleObject( value = """
+                            {
+                                "titulo": "los viajes",
+                                "genero": "Acción",
+                                "fechaEstreno": "2024-05-17",
+                                "dir_id": 1
+                            }
+                            """)
+            ))
+            @RequestBody PeliculaRequestDTO dto){
         return ResponseEntity.ok(PeliculaResponseDTO.of(peliculaService.edit(id,dto)));
     }
 
+
+    @Operation(summary = "Eliminar película")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Película eliminada correctamente"),
+            @ApiResponse(responseCode = "404", description = "Película no encontrada",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                    {
+                      "detail": "No se ha encontrado la película con id 1",
+                      "instance": "/api/v1/peliculas/1",
+                      "status": 404,
+                      "title": "Entidad no encontrada",
+                      "type": "gestorpeliculas.com/error/no-encontrado"
+                    }
+                """
+                            )
+                    )
+            )
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(
+            @Parameter(description = "Identificador de la película",example = "1" )
+            @PathVariable Long id){
         peliculaService.delete(id);
         return ResponseEntity.noContent().build();
     }

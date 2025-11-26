@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class ActorService {
 
-    private ActorRepository actorRepository;
+    private final ActorRepository actorRepository;
 
     public List<Actor> getAll(){
         List<Actor> result = actorRepository.findAll();

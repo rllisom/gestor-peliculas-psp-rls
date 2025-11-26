@@ -1,6 +1,6 @@
 package com.salesianos.dam.apipeliculas.error;
 
-public class DirectorNoEncontradoException extends RuntimeException {
+public class DirectorNoEncontradoException extends EntidadNoEncontradaExcepcion {
     public DirectorNoEncontradoException(String message) {
         super(message);
     }

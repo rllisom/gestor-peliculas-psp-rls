@@ -21,7 +21,6 @@ public class Actor {
     @Id
     @GeneratedValue
     private Long id;
-
     private String nombre;
 
     @ManyToMany(mappedBy = "actores")

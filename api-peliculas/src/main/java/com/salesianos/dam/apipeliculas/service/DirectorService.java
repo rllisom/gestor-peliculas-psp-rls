@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @Service
@@ -27,13 +29,16 @@ public class DirectorService {
 
     public Director create(DirectorRequestDTO dto){
         if(!StringUtils.hasText(dto.nombre())) throw new IllegalArgumentException("Falta el campo del nombre del director");
-        if(dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+
+        if(LocalDate.now().getYear() - dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+
         return directorRespository.save(dto.toEntity());
     }
 
     public Director edit(Long id,DirectorRequestDTO dto){
         if(!StringUtils.hasText(dto.nombre())) throw new IllegalArgumentException("Falta el campo del nombre del director");
-        if(dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+
+        if(LocalDate.now().getYear() - dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
 
         return directorRespository.findById(id)
                 .map(d -> {
