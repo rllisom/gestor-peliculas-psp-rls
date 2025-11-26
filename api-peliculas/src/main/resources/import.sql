@@ -1,0 +1,1 @@
+INSERT INTO director (id, nombre, anio_nacimiento) VALUES (0, 'Desconocido', 1900);

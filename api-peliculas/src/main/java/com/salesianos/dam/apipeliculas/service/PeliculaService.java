@@ -34,29 +34,26 @@ public class PeliculaService {
         return peliculaRepository.findById(id).orElseThrow(() -> new PeliculaNoEncontradaExcepcion(id));
     }
 
+
     public Pelicula create(PeliculaRequestDTO dto){
         if(!StringUtils.hasText(dto.titulo())) throw new IllegalArgumentException("Falta el campo del título de la película");
         if(peliculaRepository.existsByTitulo(dto.titulo())) throw new PeliculaYaExcisteException(dto.titulo());
+
         Director d = directorRespository.findById(dto.dir_id()).orElseThrow(() -> new DirectorNoEncontradoException(dto.dir_id()));
+
         return peliculaRepository.save(dto.toEntity(d));
     }
 
     public Pelicula editPeliculaActor(Long idPelicula,Long actorId){
         Pelicula p = peliculaRepository.findById(idPelicula).orElseThrow(()-> new PeliculaNoEncontradaExcepcion(idPelicula));
         Actor a = actorRepository.findById(actorId).orElseThrow(() -> new ActorNoEncontradoException(actorId));
-        if(!p.getActores().contains(a)){
-            p.getActores().add(a);
-        }else{
-            throw new ActorYaEnRepartoExcepcion(actorId);
-        }
+        p.relacinarPeliculaActor(a);
         return peliculaRepository.save(p);
     }
 
     public Pelicula edit(Long idPelicula,PeliculaRequestDTO dto){
 
         if(!StringUtils.hasText(dto.titulo())) throw new IllegalArgumentException("Falta el campo del título de la película");
-        if(peliculaRepository.existsByTitulo(dto.titulo())) throw new PeliculaYaExcisteException(dto.titulo());
-
 
         return peliculaRepository.findById(idPelicula)
                 .map( p -> {
