@@ -16,17 +16,17 @@ public class ActorService {
 
     private ActorRepository actorRepository;
 
-    private List<Actor> getAll(){
+    public List<Actor> getAll(){
         List<Actor> result = actorRepository.findAll();
         if(result.isEmpty()) throw new ActorNoEncontradoException();
         return result;
     }
 
-    private Actor getById(Long id){
+    public Actor getById(Long id){
         return actorRepository.findById(id).orElseThrow(() -> new ActorNoEncontradoException(id));
     }
 
-    private Actor create(ActorRequestDTO dto){
+    public Actor create(ActorRequestDTO dto){
         if(!StringUtils.hasText(dto.nombre())) throw new IllegalArgumentException("Falta el campo nombre para crear al actor");
         return actorRepository.save(dto.toEntity());
     }
