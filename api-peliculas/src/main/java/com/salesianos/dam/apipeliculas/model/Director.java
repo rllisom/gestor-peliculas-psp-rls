@@ -1,5 +1,6 @@
 package com.salesianos.dam.apipeliculas.model;
 
+import com.salesianos.dam.apipeliculas.error.DirectorMenorEdadException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -7,6 +8,8 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -47,4 +50,13 @@ public class Director {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
+    //Helpers
+
+    public static void comprobarEdad(int anioNacimiento){
+        LocalDate fechaActual = LocalDate.now();
+        int tope = 18;
+        if((fechaActual.getYear()-anioNacimiento)<tope) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+    }
+
 }

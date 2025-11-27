@@ -1,5 +1,6 @@
 package com.salesianos.dam.apipeliculas.model;
 
+import com.salesianos.dam.apipeliculas.error.ActorYaEnRepartoExcepcion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -55,5 +56,14 @@ public class Pelicula {
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    public void relacinarPeliculaActor(Actor a){
+        if(!this.getActores().contains(a)){
+            this.getActores().add(a);
+            a.getPeliculas().add(this);
+        }else{
+            throw new ActorYaEnRepartoExcepcion(a.getId());
+        }
     }
 }
