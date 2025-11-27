@@ -28,6 +28,8 @@ El sistema gestiona tres entidades principales:
     Relaciones
   - Pelicula -> Director (ManyToOne / OneToMany)
   - Pelicula <-> Actor (ManyToMany)
+
+	
 ⸻
 
 Funcionalidades Principales
