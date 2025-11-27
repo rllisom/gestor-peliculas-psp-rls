@@ -48,17 +48,12 @@ public class DirectorService {
 
                     return directorRespository.save(d);
                 })
-                .orElseThrow(() -> new DirectorNoEncontradoException(id));
+                .orElseThrow(() -> new IllegalArgumentException("No se puede editar al director con id %d".formatted(id)));
     }
 
     public void delete(Long id){
-        if(id.equals(director_desc)) throw new IllegalArgumentException("No se puede eliminar");
-
-        Director d = directorRespository.findById(id).orElseThrow(()-> new DirectorNoEncontradoException(id));
-        Director desc = directorRespository.findById(0L).orElseThrow(() -> new DirectorNoEncontradoException("No existes en la base de datos dicho director"));
-
-        d.eliminarDirector(desc);
-
+        Director d = directorRespository.findById(id).orElseThrow(()-> new IllegalArgumentException("No se puede editar al director con id %d".formatted(id)));
+        if (!d.getPeliculas().isEmpty()) throw new IllegalArgumentException("No se puede eliminar a un director con películas asociadas");
         directorRespository.delete(d);
     }
 }

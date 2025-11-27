@@ -41,12 +41,12 @@ public class PeliculaService {
 
         Director d = directorRespository.findById(dto.dir_id()).orElseThrow(() -> new DirectorNoEncontradoException(dto.dir_id()));
 
-        return peliculaRepository.save(dto.toEntity(d));
+        return peliculaRepository.save(toEntity(dto,d));
     }
 
     public Pelicula editPeliculaActor(Long idPelicula,Long actorId){
-        Pelicula p = peliculaRepository.findById(idPelicula).orElseThrow(()-> new PeliculaNoEncontradaExcepcion(idPelicula));
-        Actor a = actorRepository.findById(actorId).orElseThrow(() -> new ActorNoEncontradoException(actorId));
+        Pelicula p = peliculaRepository.findById(idPelicula).orElseThrow(()-> new IllegalArgumentException("No se puede editar la película con id %d".formatted(idPelicula)));
+        Actor a = actorRepository.findById(actorId).orElseThrow(() -> new IllegalArgumentException("No se puede editar la película con un actor de id %d".formatted(actorId)));
         p.relacinarPeliculaActor(a);
         return peliculaRepository.save(p);
     }
@@ -63,11 +63,21 @@ public class PeliculaService {
                             p.setDirector(directorRespository.findById(dto.dir_id()).orElseThrow(()->new DirectorNoEncontradoException(dto.dir_id())));
 
                             return peliculaRepository.save(p);
-                }).orElseThrow(() -> new PeliculaNoEncontradaExcepcion(idPelicula));
+                }).orElseThrow(() -> new IllegalArgumentException("No se puede editar la película con id %d".formatted(idPelicula)));
     }
 
     public void delete(Long id){
-        Pelicula p = peliculaRepository.findById(id).orElseThrow(() -> new PeliculaNoEncontradaExcepcion(id));
+        Pelicula p = peliculaRepository.findById(id).orElseThrow(() ->new IllegalArgumentException("No se puede eliminar la película con id %d".formatted(id)));
         peliculaRepository.deleteById(id);
+    }
+
+    //Builder
+    public Pelicula toEntity(PeliculaRequestDTO dto,Director d){
+        return Pelicula.builder()
+                .titulo(dto.titulo())
+                .genero(dto.genero())
+                .fechaEstreno(dto.fechaEstreno())
+                .director(d)
+                .build();
     }
 }

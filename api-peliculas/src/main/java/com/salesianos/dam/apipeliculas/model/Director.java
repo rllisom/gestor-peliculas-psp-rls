@@ -55,11 +55,8 @@ public class Director {
 
     public static void comprobarEdad(int anioNacimiento){
         LocalDate fechaActual = LocalDate.now();
-
-        if((fechaActual.getYear()-anioNacimiento)<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+        int tope = 18;
+        if((fechaActual.getYear()-anioNacimiento)<tope) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
     }
 
-    public void eliminarDirector(Director desc){
-        this.getPeliculas().forEach(p -> p.setDirector(desc));
-    }
 }

@@ -134,7 +134,7 @@ public class DirectorController {
                                         }
                                     """
                             ))),
-            @ApiResponse(responseCode = "400", description = "Error al crear la película",
+            @ApiResponse(responseCode = "400", description = "Error al crear al director ",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),

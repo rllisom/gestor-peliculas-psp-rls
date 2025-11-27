@@ -80,7 +80,7 @@ public class PeliculaController {
         return peliculaService.getAll().stream().map(PeliculaResponseDTO::of).toList();
     }
 
-    @Operation(summary = "Obtener toda las películas")
+    @Operation(summary = "Obtener película por su id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Película recibida correctamente",
                     content = @Content(
@@ -158,26 +158,8 @@ public class PeliculaController {
                                            "status": 400,
                                            "title": "Error en los argumentos",
                                            "type": "gestorpeliculas.com/error/argumento-erroneo"
-                                                                       
                                         }
                                     """
-                            )
-                    )
-            ),
-            @ApiResponse(responseCode = "404", description = "Película no encontrada",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProblemDetail.class),
-                            examples = @ExampleObject(
-                                    value = """
-                                                {
-                                                    "detail": "No se ha encontrado la película con id 4",
-                                                    "instance": "/api/v1/peliculas/4",
-                                                    "status": 404,
-                                                    "title": "Entidad no encontrada",
-                                                    "type": "gestorpeliculas.com/error/no-encontrado"
-                                                }
-                                            """
                             )
                     )
             ),
@@ -258,7 +240,7 @@ public class PeliculaController {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "404", description = "Película actor no encontrado",
+            @ApiResponse(responseCode = "404", description = "Película no encontrada",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
@@ -267,6 +249,23 @@ public class PeliculaController {
                                                 {
                                                     "detail": "No se ha encontrado la película con id 4",
                                                     "instance": "/api/v1/peliculas/4",
+                                                    "status": 404,
+                                                    "title": "Entidad no encontrada",
+                                                    "type": "gestorpeliculas.com/error/no-encontrado"
+                                                }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "Actor no encontrado",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    value = """
+                                                {
+                                                    "detail": "No se ha encontrado al actor con id 4",
+                                                    "instance": "/api/v1/actores/4",
                                                     "status": 404,
                                                     "title": "Entidad no encontrada",
                                                     "type": "gestorpeliculas.com/error/no-encontrado"
