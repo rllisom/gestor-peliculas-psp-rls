@@ -17,6 +17,7 @@ import java.util.Locale;
 @Service
 public class DirectorService {
 
+    private static final Long director_desc = 0L;
     private final DirectorRespository directorRespository;
 
     public List<Director> getAll(){
@@ -28,17 +29,17 @@ public class DirectorService {
     }
 
     public Director create(DirectorRequestDTO dto){
-        if(!StringUtils.hasText(dto.nombre())) throw new IllegalArgumentException("Falta el campo del nombre del director");
 
-        if(LocalDate.now().getYear() - dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+        DirectorRequestDTO.validarDTO(dto);
+        Director.comprobarEdad(dto.anioNacimiento());
 
         return directorRespository.save(dto.toEntity());
     }
 
     public Director edit(Long id,DirectorRequestDTO dto){
-        if(!StringUtils.hasText(dto.nombre())) throw new IllegalArgumentException("Falta el campo del nombre del director");
 
-        if(LocalDate.now().getYear() - dto.anioNacimiento()<18) throw new DirectorMenorEdadException("El director no puede ser menor de edad");
+        DirectorRequestDTO.validarDTO(dto);
+        Director.comprobarEdad(dto.anioNacimiento());
 
         return directorRespository.findById(id)
                 .map(d -> {
@@ -47,11 +48,12 @@ public class DirectorService {
 
                     return directorRespository.save(d);
                 })
-                .orElseThrow(() -> new DirectorNoEncontradoException(id));
+                .orElseThrow(() -> new IllegalArgumentException("No se puede editar al director con id %d".formatted(id)));
     }
 
     public void delete(Long id){
-        Director d = directorRespository.findById(id).orElseThrow(()-> new DirectorNoEncontradoException(id));
+        Director d = directorRespository.findById(id).orElseThrow(()-> new IllegalArgumentException("No se puede eliminar al director con id %d".formatted(id)));
+        if (!d.getPeliculas().isEmpty()) throw new IllegalArgumentException("No se puede eliminar a un director con películas asociadas");
         directorRespository.delete(d);
     }
 }

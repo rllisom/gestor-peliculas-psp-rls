@@ -13,12 +13,11 @@ public record PeliculaRequestDTO(
        LocalDate fechaEstreno,
        Long dir_id
 ) {
-    public Pelicula toEntity(Director director){
+    public Pelicula toEntity(){
         return Pelicula.builder()
                 .titulo(this.titulo)
                 .genero(this.genero)
                 .fechaEstreno(this.fechaEstreno)
-                .director(director)
                 .build();
     }
 }
