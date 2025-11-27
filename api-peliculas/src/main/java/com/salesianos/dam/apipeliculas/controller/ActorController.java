@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/api/v1/actores")
 @RequiredArgsConstructor
 @RestController
-@Tag(name = "Gestión de los actores de una película", description = "Endpoints para gestionar las peticiones al servidor de los actores")
+@Tag(name = "Actor", description = "Endpoints para gestionar las peticiones al servidor de los actores")
 public class ActorController {
 
     private final ActorService actorService;

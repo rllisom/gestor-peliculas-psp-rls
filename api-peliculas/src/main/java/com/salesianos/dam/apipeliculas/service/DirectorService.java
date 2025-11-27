@@ -52,7 +52,7 @@ public class DirectorService {
     }
 
     public void delete(Long id){
-        Director d = directorRespository.findById(id).orElseThrow(()-> new IllegalArgumentException("No se puede editar al director con id %d".formatted(id)));
+        Director d = directorRespository.findById(id).orElseThrow(()-> new IllegalArgumentException("No se puede eliminar al director con id %d".formatted(id)));
         if (!d.getPeliculas().isEmpty()) throw new IllegalArgumentException("No se puede eliminar a un director con películas asociadas");
         directorRespository.delete(d);
     }
