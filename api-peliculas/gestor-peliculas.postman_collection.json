@@ -4,7 +4,7 @@
 		"name": "gestor-peliculas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "50169652",
-		"_collection_link": "https://llinares-sorau24-3428580.postman.co/workspace/Ra%25C3%25BAl-Llinares-Som%25C3%25A9's-Workspace~dc141cc5-03d2-490f-837a-20419d8ebfaa/collection/50169652-eb15677b-5b86-4cdd-b332-0ac3ad7ef4b1?action=share&source=collection_link&creator=50169652"
+		"_collection_link": "https://llinares-sorau24-3428580.postman.co/workspace/dc141cc5-03d2-490f-837a-20419d8ebfaa/collection/50169652-eb15677b-5b86-4cdd-b332-0ac3ad7ef4b1?action=share&source=collection_link&creator=50169652"
 	},
 	"item": [
 		{
@@ -16,13 +16,57 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLPeliculas}}",
+							"raw": "{{baseURLPeliculas}}/1",
 							"host": [
 								"{{baseURLPeliculas}}"
+							],
+							"path": [
+								"1"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getPelicula200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "getPelicula404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLPeliculas}}/2",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "getPeliculas",
@@ -43,7 +87,29 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getPeliculas200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"El viaje\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 1\n    \n}"
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}",
+									"host": [
+										"{{baseURLPeliculas}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "CreatePelicula",
@@ -66,7 +132,86 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "CreatePelicula201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"El viaje\",\n    \"genero\": \"Drama\",\n    \"fechaEstreno\": \"2024-06-16\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}",
+									"host": [
+										"{{baseURLPeliculas}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CreatePelicula400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"\",\n    \"genero\": \"Drama\",\n    \"fechaEstreno\": \"2024-06-16\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}",
+									"host": [
+										"{{baseURLPeliculas}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CreatePelicula409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"El viaje\",\n    \"genero\": \"Drama\",\n    \"fechaEstreno\": \"2024-06-16\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}",
+									"host": [
+										"{{baseURLPeliculas}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "EditPelicula",
@@ -75,7 +220,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\": \"Los viajes\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 2\n    \n}",
+							"raw": "{\n    \"titulo\": \"Los viajes\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 3\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,16 +228,133 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLPeliculas}}/4",
+							"raw": "{{baseURLPeliculas}}/1",
 							"host": [
 								"{{baseURLPeliculas}}"
 							],
 							"path": [
-								"4"
+								"1"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "EditPelicula200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"El viaje\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 1\n    \n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "EditPelicula400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "EditPelicula404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Los viajes\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/4",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"4"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "EditPelicula409",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Los viajes\",\n    \"genero\": \"Acción\",\n    \"fechaEstreno\": \"2024-05-17\",\n    \"dir_id\": 1\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "DeletePelicula",
@@ -100,16 +362,57 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLPeliculas}}/4",
+							"raw": "{{baseURLPeliculas}}/1",
 							"host": [
 								"{{baseURLPeliculas}}"
 							],
 							"path": [
-								"4"
+								"1"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "DeletePelicula204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "DeletePelicula404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "AgregarActor",
@@ -126,18 +429,143 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLPeliculas}}/1/actores/3",
+							"raw": "{{baseURLPeliculas}}/1/actores/1",
 							"host": [
 								"{{baseURLPeliculas}}"
 							],
 							"path": [
 								"1",
 								"actores",
-								"3"
+								"1"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "AgregarActor200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1/actores/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1",
+										"actores",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "AgregarActor409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1/actores/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1",
+										"actores",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "AgregarActor404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/2/actores/1",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"2",
+										"actores",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "AgregarActor400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLPeliculas}}/1/actores/4",
+									"host": [
+										"{{baseURLPeliculas}}"
+									],
+									"path": [
+										"1",
+										"actores",
+										"4"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		},
@@ -150,16 +578,57 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLActor}}/3",
+							"raw": "{{baseURLActor}}/1",
 							"host": [
 								"{{baseURLActor}}"
 							],
 							"path": [
-								"3"
+								"1"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getActor200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLActor}}/1",
+									"host": [
+										"{{baseURLActor}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "getActor404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLActor}}/1",
+									"host": [
+										"{{baseURLActor}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "getActores",
@@ -180,7 +649,29 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getActores200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseURLActor}}",
+									"host": [
+										"{{baseURLActor}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "CreateActor",
@@ -203,44 +694,60 @@
 							]
 						}
 					},
-					"response": []
-				},
-				{
-					"name": "EditActor",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/api/v1/actores/4",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"actores",
-								"4"
-							]
+					"response": [
+						{
+							"name": "CreateActor201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"Antonio Banderas\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLActor}}",
+									"host": [
+										"{{baseURLActor}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CreateActor400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLActor}}",
+									"host": [
+										"{{baseURLActor}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteActor",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseURLDirector}}/1",
-							"host": [
-								"{{baseURLDirector}}"
-							],
-							"path": [
-								"1"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -262,7 +769,48 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getDirector200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}/1",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "getDirector404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}/3",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"3"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "getDirectores",
@@ -276,7 +824,42 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "getDirectores200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}",
+									"host": [
+										"{{baseURLDirector}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "getDirectores404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}",
+									"host": [
+										"{{baseURLDirector}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "CreateDirector",
@@ -299,7 +882,86 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "CreateDirector201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"Pedro Almodovar\",\n    \"anioNacimiento\":1965\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}",
+									"host": [
+										"{{baseURLDirector}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CreateDirector400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"\",\n    \"anioNacimiento\":1965\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}",
+									"host": [
+										"{{baseURLDirector}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "CreateDirector409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"Pedro Almodovar\",\n    \"anioNacimiento\":2010\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}",
+									"host": [
+										"{{baseURLDirector}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "EditDirector",
@@ -316,16 +978,104 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLDirector}}/1",
+							"raw": "{{baseURLDirector}}/3",
 							"host": [
 								"{{baseURLDirector}}"
 							],
 							"path": [
-								"1"
+								"3"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "EditDirector200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"Pedro Almodo\",\n    \"anioNacimiento\":1965\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}/3",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"3"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "EditDirector400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"\",\n    \"anioNacimiento\":1965\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}/3",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"3"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "EditDirector404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\":\"Pedro Almodo\",\n    \"anioNacimiento\":1965\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURLDirector}}/3",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"3"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "DeleteDirector",
@@ -333,16 +1083,63 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLDirector}}/2",
+							"raw": "{{baseURLDirector}}/3",
 							"host": [
 								"{{baseURLDirector}}"
 							],
 							"path": [
-								"2"
+								"3"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "DeleteDirector204",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}/4",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"4"
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": ""
+						},
+						{
+							"name": "DeleteDirector400",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURLDirector}}/3",
+									"host": [
+										"{{baseURLDirector}}"
+									],
+									"path": [
+										"3"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		}

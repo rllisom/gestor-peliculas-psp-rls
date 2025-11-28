@@ -2,12 +2,16 @@ package com.salesianos.dam.apipeliculas.dto;
 
 import com.salesianos.dam.apipeliculas.model.Director;
 import com.salesianos.dam.apipeliculas.model.Pelicula;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.util.StringUtils;
 
 import java.util.Set;
 
+@Schema(description = "Cuerpo del dto necesario para crear o editar un director")
 public record DirectorRequestDTO(
+        @Schema(description = "Nombre del director", example = "Pedro Almodovar")
         String nombre,
+        @Schema(description = "Año de nacimiento del director", example = "1965")
         Integer anioNacimiento
 ) {
 

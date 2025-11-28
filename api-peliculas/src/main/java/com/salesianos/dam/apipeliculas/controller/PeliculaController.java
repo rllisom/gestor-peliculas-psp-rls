@@ -200,7 +200,7 @@ public class PeliculaController {
 
     @Operation(summary = "Agregar actor a una película")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Actor agregado a la películacorrectamente",
+            @ApiResponse(responseCode = "200", description = "Actor agregado a la película correctamente",
                     content = @Content(
                             mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = PeliculaResponseDTO.class)),

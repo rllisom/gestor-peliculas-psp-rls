@@ -160,7 +160,7 @@ public class DirectorController {
                                         {
                                                "detail": "El director no puede ser menor de edad",
                                                "instance": "/api/v1/director",
-                                               "status": 400,
+                                               "status": 409,
                                                "title": "Error en el atributo",
                                                "type": "gestorpeliculas.com/error/argumento-erroneo" 
                                         }
