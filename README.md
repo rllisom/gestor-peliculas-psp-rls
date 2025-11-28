@@ -1,5 +1,10 @@
 # gestor-peliculas-psp-rls
 
+Clonar repositorio:
+https://github.com/rllisom/gestor-peliculas-psp-rls.git
+
+⸻
+
 Descripción
 API para crear, editar, obtener y eliminar películas, directores y actores.
 ⸻
@@ -48,11 +53,10 @@ CRUD de Películas
 CRUD de Actores
 	•	Crear actor
 	•	Listar actores
-(No se requiere edit/delete)
 
 Gestión del Reparto (Relación M:M)
 	•	Asignar un actor a una película:
-  POST /api/v1/peliculas/{peliculaId}/actores/{actorId}
+
 
 ⸻
 
@@ -72,18 +76,18 @@ IllegalArgumentException -> 400
 
 ⸻
 
-📄 Diseño y DTOs
+Diseño y DTOs
 
-Se utilizan DTOs anidados siguiendo una estructura clara:
-	-	PeliculaResponseDTO
-  - PeliculaRequestDTO
-  - PeliculaSimpleResponseDTO
-  - DirectorResponseDTO
-  - DirectorRequestDTO
-  - DirectorSimpleResponseDTO
-  - ActorResponseDTO
-  - ActorRequestDTO
-  - ActorSimpleResponseDTO
+Se utilizan DTOs anidados:
+  - PeliculaResponseDTO -> Muestra el valor de cada atributo
+  - PeliculaRequestDTO -> Cuerpo necesario e indispensable para la creación/edición de películas
+  - PeliculaSimpleResponseDTO -> Muestra id y nombre de la película 
+  - DirectorResponseDTO -> Muestra el valor de cada atributo
+  - DirectorRequestDTO -> Cuerpo necesario e indispensable para la creación/edición de directores
+  - DirectorSimpleResponseDTO -> Muestra id y nombre de la película 
+  - ActorResponseDTO -> Muestra el valor de cada atributo
+  - ActorRequestDTO  -> Cuerpo necesario e indispensable para la creación/edición de actores
+  - ActorSimpleResponseDTO -> Muestra id y nombre de la película 
 
 ⸻
 Arquitectura del Proyecto
@@ -100,7 +104,7 @@ Servicios – Funcionamiento
 
  PeliculaService
   - Crud basiscos con manejo de errores incluidos
-	- Validaciones para evitar duplicados
+  - Validaciones para evitar duplicados
   - Método para agregar actores
 
 
@@ -111,7 +115,7 @@ ActorService
 DirectorService
 	- CRUD completo
 	- Valida la edad mínima en un método que se encuentra en la clase entidad como helper
-  - No se puede eliminar un director si tiene asociado una película
+    - No se puede eliminar un director si tiene asociado una película
 
 ⸻
 
