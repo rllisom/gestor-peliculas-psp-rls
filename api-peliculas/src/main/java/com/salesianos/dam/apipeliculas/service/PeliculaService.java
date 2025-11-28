@@ -45,7 +45,7 @@ public class PeliculaService {
     }
 
     public Pelicula editPeliculaActor(Long idPelicula,Long actorId){
-        Pelicula p = peliculaRepository.findById(idPelicula).orElseThrow(()-> new IllegalArgumentException("No se puede editar la película con id %d".formatted(idPelicula)));
+        Pelicula p = getById(idPelicula);
         Actor a = actorRepository.findById(actorId).orElseThrow(() -> new IllegalArgumentException("No se puede editar la película con un actor de id %d".formatted(actorId)));
         p.relacinarPeliculaActor(a);
         return peliculaRepository.save(p);
@@ -63,11 +63,11 @@ public class PeliculaService {
                             p.setDirector(directorRespository.findById(dto.dir_id()).orElseThrow(()->new DirectorNoEncontradoException(dto.dir_id())));
 
                             return peliculaRepository.save(p);
-                }).orElseThrow(() -> new IllegalArgumentException("No se puede editar la película con id %d".formatted(idPelicula)));
+                }).orElseThrow(() -> new PeliculaNoEncontradaExcepcion(idPelicula));
     }
 
     public void delete(Long id){
-        Pelicula p = peliculaRepository.findById(id).orElseThrow(() ->new IllegalArgumentException("No se puede eliminar la película con id %d".formatted(id)));
+        Pelicula p = getById(id);
         peliculaRepository.deleteById(id);
     }
 

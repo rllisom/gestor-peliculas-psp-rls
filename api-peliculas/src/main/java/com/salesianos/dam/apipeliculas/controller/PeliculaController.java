@@ -240,20 +240,20 @@ public class PeliculaController {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "No se puede agregar un actor debido un argumento fallido de película",
+            @ApiResponse(responseCode = "404", description = "Error al editar la película",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
                             examples = @ExampleObject(
                                     value = """
-                                                {
-                                                   "detail": "No se puede editar la película con id 2",
-                                                   "instance": "/api/v1/peliculas/2/actores/1",
-                                                   "status": 400,
-                                                   "title": "Error en los argumentos",
-                                                   "type": "gestorpeliculas.com/error/argumento-erroneo"
-                                                }
-                                            """
+                                        {
+                                            "detail": "No se han encontrado películas en el servidor",
+                                            "instance": "/api/v1/peliculas",
+                                            "status": 404,
+                                            "title": "Entidad no encontrada",
+                                            "type": "gestorpeliculas.com/error/no-encontrado"
+                                        }
+                                    """
                             )
                     )
             ),
@@ -327,20 +327,20 @@ public class PeliculaController {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "No se puede editar la película debido a un identificador erróneo",
+            @ApiResponse(responseCode = "404", description = "Error al recibir la película",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
                             examples = @ExampleObject(
                                     value = """
-                                                {
-                                                   "detail": "No se puede editar la película con id 2",
-                                                   "instance": "/api/v1/peliculas/2/actores/1",
-                                                   "status": 400,
-                                                   "title": "Error en los argumentos",
-                                                   "type": "gestorpeliculas.com/error/argumento-erroneo"
-                                                }
-                                            """
+                                        {
+                                            "detail": "No se ha encontrado la película con id 4",
+                                            "instance": "/api/v1/peliculas/4",
+                                            "status": 404,
+                                            "title": "Entidad no encontrada",
+                                            "type": "gestorpeliculas.com/error/no-encontrado"
+                                        }
+                                    """
                             )
                     )
             ),
@@ -386,20 +386,20 @@ public class PeliculaController {
     @Operation(summary = "Eliminar película")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Película eliminada correctamente"),
-            @ApiResponse(responseCode = "400", description = "No se puede eliminar la película debido al identificador",
+            @ApiResponse(responseCode = "404", description = "Error al recibir la película",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
                             examples = @ExampleObject(
                                     value = """
-                    {
-                        "detail": "No se puede eliminar la película con id 4",
-                        "instance": "/api/v1/peliculas/4",
-                        "status": 400,
-                        "title": "Error en los argumentos",
-                        "type": "gestorpeliculas.com/error/argumento-erroneo"
-                    }
-                """
+                                        {
+                                            "detail": "No se ha encontrado la película con id 4",
+                                            "instance": "/api/v1/peliculas/4",
+                                            "status": 404,
+                                            "title": "Entidad no encontrada",
+                                            "type": "gestorpeliculas.com/error/no-encontrado"
+                                        }
+                                    """
                             )
                     )
             )
