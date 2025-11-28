@@ -223,20 +223,20 @@ public class DirectorController {
                             )
                     )
             ),
-            @ApiResponse(responseCode = "400", description = "Error al editar, director con id incorrecto",
+            @ApiResponse(responseCode = "404", description = "Error al recibir a un director específico",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
                             examples = @ExampleObject(
                                     value = """
-                                                {
-                                                     "detail": "No se puede editar al director con id 3",
-                                                     "instance": "/api/v1/director/3",
-                                                     "status": 400,
-                                                     "title": "Error en los argumentos",
-                                                     "type": "gestorpeliculas.com/error/no-encontrado"
-                                                }
-                                            """
+                                        {
+                                            "detail": "No se ha encontrado al director con id 2",
+                                            "instance": "/api/v1/director",
+                                            "status": 404,
+                                            "title": "Entidad no encontrada",
+                                            "type": "gestorpeliculas.com/error/no-encontrado"
+                                        }
+                                    """
                             )
                     )
             ),
@@ -280,20 +280,20 @@ public class DirectorController {
     @Operation(summary = "Eliminar director")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Director eliminado correctamente"),
-            @ApiResponse(responseCode = "400", description = "No se puede eliminar al director, id incorrecto",
+            @ApiResponse(responseCode = "404", description = "Error al recibir a un director específico",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class),
                             examples = @ExampleObject(
                                     value = """
-                    {
-                        "detail": "No se ha encontrado al director con id 2",
-                        "instance": "/api/v1/director",
-                        "status": 404,
-                        "title": "Entidad no encontrada",
-                        "type": "gestorpeliculas.com/error/no-encontrado"
-                    }
-                """
+                                        {
+                                            "detail": "No se ha encontrado al director con id 2",
+                                            "instance": "/api/v1/director",
+                                            "status": 404,
+                                            "title": "Entidad no encontrada",
+                                            "type": "gestorpeliculas.com/error/no-encontrado"
+                                        }
+                                    """
                             )
                     )
             ),
